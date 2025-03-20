@@ -38,6 +38,7 @@ export function Navbar({ onCitySelect }: NavbarProps) {
                 </Group>
                 <Group>
                     <Autocomplete
+
                         className={classes.search}
                         placeholder="Search City"
                         leftSection={<IconSearch size={16} stroke={1.5} />}

@@ -6,6 +6,8 @@ import { Navbar } from "@/components/Navbar";
 import { Loader, Text } from "@mantine/core";
 import WeatherCard from "@/components/WeatherCard";  // ✅ Import WeatherCard
 import { useEffect } from "react";
+import CityForm from "@/components/CityForm";
+import CityList from "@/components/CityList";
 
 export default function Home() {
   const cities = useSelector((state: RootState) => state.weather.cities); // Redux State
@@ -40,6 +42,9 @@ export default function Home() {
           <Text size="xl" color="white">City not found!</Text>
         )}
       </div>
+      <CityForm />
+      <CityList />
+
       <footer
         style={{
           backgroundColor: "black",
