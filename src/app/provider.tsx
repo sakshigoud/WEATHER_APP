@@ -1,4 +1,4 @@
-"use client"; // ✅ Marks this as a Client Component
+"use client";
 
 import { MantineProvider } from "@mantine/core";
 import { Provider } from "react-redux";

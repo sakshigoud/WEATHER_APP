@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb"
-import City from "@/models/City"; // Import your City model
+import City from "@/models/City";
 console.log("✅ API Route Hit: /api/cities");
 
 export async function GET() {
     console.log("✅ Inside GET Method");
     try {
-        await connectToDatabase(); // Ensure database connection
-        const cities = await City.find({}); // Fetch cities from MongoDB
+        await connectToDatabase();
+        const cities = await City.find({});
         console.log("✅ Fetched Cities:", cities);
         return NextResponse.json(cities);
     } catch (error) {
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     console.log("✅ Inside POST Method");
     try {
         await connectToDatabase();
-        const { name, country } = await req.json(); // Get data from request body
+        const { name, country } = await req.json();
         if (!name || !country) {
             console.error("❌ Validation Error: Missing name or country");
 

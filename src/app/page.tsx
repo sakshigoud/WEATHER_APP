@@ -4,34 +4,34 @@ import { RootState } from "@/redux/store";
 import { useWeather } from "@/hooks/useWeather";
 import { Navbar } from "@/components/Navbar";
 import { Loader, Text } from "@mantine/core";
-import WeatherCard from "@/components/WeatherCard";  // ✅ Import WeatherCard
+import WeatherCard from "@/components/WeatherCard";
 import { useEffect } from "react";
 import CityForm from "@/components/CityForm";
 import CityList from "@/components/CityList";
 
 export default function Home() {
-  const cities = useSelector((state: RootState) => state.weather.cities); // Redux State
+  const cities = useSelector((state: RootState) => state.weather.cities);
   const lastCity = cities.length > 0 ? cities[cities.length - 1] : "Dewas";
 
   const { weather, loading, getWeather } = useWeather("Dewas");
   useEffect(() => {
-    console.log("Fetching weather for:", lastCity); // ✅ Debugging
-    getWeather(lastCity); // ✅ Fetch the latest city weather
+    console.log("Fetching weather for:", lastCity);
+    getWeather(lastCity);
   }, [lastCity]);
   return (
     <div className="App" style={{
-      backgroundColor: "lightgray",  // ✅ Background color
-      minHeight: "100vh",       // ✅ Full viewport height
-      display: "flex",          // ✅ Center content vertically
-      flexDirection: "column",  // ✅ Stack items (Navbar + Content)
+      backgroundColor: "lightgray",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
     }}>
       <Navbar onCitySelect={getWeather} />
       <div
         style={{
-          flexGrow: 1,  // ✅ Pushes footer to the bottom
+          flexGrow: 1,
           display: "flex",
-          justifyContent: "center", // ✅ Center content horizontally
-          alignItems: "center", // ✅ Center content vertically
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {loading ? (
@@ -43,7 +43,6 @@ export default function Home() {
         )}
       </div>
       <CityForm />
-      <CityList />
 
       <footer
         style={{

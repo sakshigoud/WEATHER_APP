@@ -5,28 +5,42 @@ import { useDisclosure } from "@mantine/hooks";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { Button } from "@mantine/core";
 import classes from "./Navbar.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
 import { addCity } from "@/redux/slices/weatherSlice";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 type NavbarProps = {
     onCitySelect: (city: string) => void;
 };
 
 export function Navbar({ onCitySelect }: NavbarProps) {
     const [opened, { toggle }] = useDisclosure(false);
-    const [city, setCity] = useState(""); // Use local state to store city input
+    const [city, setCity] = useState("");
     const dispatch = useDispatch();
-    const cities = useSelector((state: RootState) => state.weather.cities); // Redux State
+    const [favoriteCities, setFavoriteCities] = useState<string[]>([]);
 
     const handleSearch = (city: string) => {
         if (city.trim()) {
             console.log(city);
-            dispatch(addCity(city)); // Add city to Redux state
-            onCitySelect(city); // Fetch Weather
+            dispatch(addCity(city));
+            onCitySelect(city);
         }
     };
+
+    const fetchFavoriteCities = async () => {
+        try {
+            const response = await axios.get("/api/cities");
+            const fetchedCities = response.data.map((city: { name: string }) => city.name);
+            setFavoriteCities(fetchedCities);
+        } catch (error) {
+            console.error("Error fetching favorite cities:", error);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchFavoriteCities();
+    }, []);
 
     return (
         <header className={classes.header}>
@@ -38,17 +52,18 @@ export function Navbar({ onCitySelect }: NavbarProps) {
                 </Group>
                 <Group>
                     <Autocomplete
-
                         className={classes.search}
                         placeholder="Search City"
                         leftSection={<IconSearch size={16} stroke={1.5} />}
-                        value={city} // Bind the input value to the state
-                        onChange={(value) => setCity(value)} // Update state on input change
-                        onOptionSubmit={() => handleSearch(city)} // Trigger search with entered city
-                        data={cities} // Use Redux State for Suggestions
+                        value={city}
+                        onChange={(value) => setCity(value)}
+                        onOptionSubmit={() => handleSearch(city)}
+                        data={favoriteCities}
                         visibleFrom="xs"
                     />
-                    <Button onClick={() => handleSearch(city)}>Search</Button> {/* Pass entered city */}
+
+                    <Button onClick={() => handleSearch(city)}>Search</Button>
+
                 </Group>
             </div>
         </header>

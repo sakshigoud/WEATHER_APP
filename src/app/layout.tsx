@@ -1,7 +1,5 @@
-// ✅ This file should NOT have "use client"
 import "@mantine/core/styles.css";
-import { MantineProvider, ColorSchemeScript } from "@mantine/core";
-import { Providers } from "./provider"; // ✅ Import Redux & Mantine Providers
+import { Providers } from "./provider";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,7 +13,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* <ColorSchemeScript /> */}
       </head>
       <body className={inter.className}>
         <Providers>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TextInput, Button, Paper, Text } from "@mantine/core";
 import axios from "axios";
 
 const CityForm = () => {
@@ -26,31 +27,34 @@ const CityForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="p-4 border rounded-md">
-            <h2 className="text-lg font-bold mb-3">Add City</h2>
-
-            {error && <p className="text-red-500">{error}</p>}
-
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="City Name"
-                className="border p-2 mb-2 w-full"
-            />
-
-            <input
-                type="text"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                placeholder="Country"
-                className="border p-2 mb-2 w-full"
-            />
-
-            <button type="submit" className="bg-blue-500 text-white p-2 w-full">
-                Add City
-            </button>
-        </form>
+        <div className="city-form" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Text size={"xl"} w={700} fw={700} mt={50}>You can add favorite cities from here!!!</Text>
+            <Paper shadow="sm" p="sm" radius="md" withBorder mt={30}>
+                <Text size="lg" w={700} mb="md">Add City</Text>
+                {error && <Text color="red" mb="sm">{error}</Text>}
+                <form onSubmit={handleSubmit}>
+                    <TextInput
+                        label="City Name"
+                        placeholder="Enter city name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        mb="sm"
+                    />
+                    <TextInput
+                        label="Country"
+                        placeholder="Enter country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        required
+                        mb="sm"
+                    />
+                    <Button type="submit" fullWidth>
+                        Add City
+                    </Button>
+                </form>
+            </Paper>
+        </div >
     );
 };
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, Text, Button, Group } from "@mantine/core";
+import { Card, Text, Group } from "@mantine/core";
 
 interface City {
     _id: string;

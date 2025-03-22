@@ -11,7 +11,7 @@ type WeatherCardProps = {
 const WeatherCard = ({ weather }: WeatherCardProps) => {
     return (
         <Card shadow="lg" padding="lg" radius="md" bg="blue.7" withBorder w="100%" maw={500} mih={350} style={{ margin: "auto" }}>
-            {/* City & Icon */}
+
             <Group justify="center">
                 <Image
                     src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
@@ -23,12 +23,12 @@ const WeatherCard = ({ weather }: WeatherCardProps) => {
                 </Text>
             </Group>
 
-            {/* Weather Description */}
+
             <Text size="lg" ta="center" fw={500} c="white">
                 {weather.weather[0].description}
             </Text>
 
-            {/* Weather Info - Responsive Grid */}
+
             <Grid gutter="md" mt="md">
                 <Grid.Col span={6}>
                     <Group>
