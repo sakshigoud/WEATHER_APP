@@ -7,7 +7,6 @@ import { Card, Text, Group } from "@mantine/core";
 interface City {
     _id: string;
     name: string;
-    country: string;
 }
 
 export default function CityList() {
@@ -35,7 +34,6 @@ export default function CityList() {
                     <Card key={city._id} shadow="sm" padding="lg" radius="md" withBorder>
                         <Group justify="space-between">
                             <Text>{city.name}</Text>
-                            <Text>{city.country}</Text>
                         </Group>
                     </Card>
                 ))

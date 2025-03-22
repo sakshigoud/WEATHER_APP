@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb"
 import City from "@/models/City";
-console.log("✅ API Route Hit: /api/cities");
+console.log(" API Route Hit: /api/cities");
 
 export async function GET() {
-    console.log("✅ Inside GET Method");
+    console.log("Inside GET Method");
     try {
         await connectToDatabase();
         const cities = await City.find({});
-        console.log("✅ Fetched Cities:", cities);
+        console.log(" Fetched Cities:", cities);
         return NextResponse.json(cities);
     } catch (error) {
         console.error("❌ Error Fetching Cities:", error);
@@ -19,18 +19,18 @@ export async function GET() {
 
 
 export async function POST(req: Request) {
-    console.log("✅ Inside POST Method");
+    console.log("Inside POST Method");
     try {
         await connectToDatabase();
-        const { name, country } = await req.json();
-        if (!name || !country) {
-            console.error("❌ Validation Error: Missing name or country");
+        const { name } = await req.json();
+        if (!name) {
+            console.error("Validation Error: Missing name");
 
-            return NextResponse.json({ message: "City name and country are required" }, { status: 400 });
+            return NextResponse.json({ message: "City name  are required" }, { status: 400 });
         }
 
-        const newCity = new City({ name, country });
-        console.log(`new city name = ${newCity.name}, country = ${newCity.country}`)
+        const newCity = new City({ name });
+        console.log(`new city name = ${newCity.name}`);
         await newCity.save();
 
         return NextResponse.json(newCity, { status: 201 });

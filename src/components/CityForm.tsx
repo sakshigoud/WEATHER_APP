@@ -4,22 +4,20 @@ import axios from "axios";
 
 const CityForm = () => {
     const [name, setName] = useState("");
-    const [country, setCountry] = useState("");
     const [error, setError] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!name || !country) {
-            setError("City name and country are required");
+        if (!name) {
+            setError("City name are required");
             return;
         }
 
         try {
-            const response = await axios.post("/api/cities", { name, country });
+            const response = await axios.post("/api/cities", { name });
             console.log("City added:", response.data);
             setName("");
-            setCountry("");
             setError("");
         } catch (err) {
             setError("Error adding city");
@@ -27,12 +25,12 @@ const CityForm = () => {
     };
 
     return (
-        <div className="city-form" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className="city-form" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "30px" }}>
             <Text size={"xl"} w={700} fw={700} mt={50}>You can add favorite cities from here!!!</Text>
             <Paper shadow="sm" p="sm" radius="md" withBorder mt={30}>
-                <Text size="lg" w={700} mb="md">Add City</Text>
+                <Text size="lg" w={700} mb="md" >Add City</Text>
                 {error && <Text color="red" mb="sm">{error}</Text>}
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <TextInput
                         label="City Name"
                         placeholder="Enter city name"
@@ -41,15 +39,8 @@ const CityForm = () => {
                         required
                         mb="sm"
                     />
-                    <TextInput
-                        label="Country"
-                        placeholder="Enter country"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                        required
-                        mb="sm"
-                    />
-                    <Button type="submit" fullWidth>
+
+                    <Button type="submit" ml={300}>
                         Add City
                     </Button>
                 </form>
